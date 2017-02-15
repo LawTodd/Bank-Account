@@ -1,5 +1,4 @@
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 
 public abstract class BankAccount {
@@ -23,15 +22,8 @@ public abstract class BankAccount {
 		balance = balance.subtract(amount);
 	}
 
-	public void balance() {
-		System.out.println("Balance of " + this + " is: " + balance);
-		System.out.println("Your account balance is    : " + balance);
-		System.out.println("Your Credit Card balance is: " + loanBalance + " at an interest rate of " + intRate);
-	}
-
-	public void loan(BigDecimal amount) {
-		balance = balance.add(amount);
-		loanBalance = loanBalance.add(amount);
+	public BigDecimal getBalance() {
+		return balance;
 	}
 
 	public void payment(BigDecimal amount) {
@@ -39,19 +31,17 @@ public abstract class BankAccount {
 		if (amount.compareTo(loanBalance) == 1) {
 			System.out.println(" Your outstanding credit card balance was only " + loanBalance
 					+ " but your payment was " + amount + " the extra money will be redeposited into your account.");
-			loanBalance = loanBalance.subtract(amount);
 			balance = balance.subtract(loanBalance);
-			loanBalance = new BigDecimal("0.00");
-		} else
-			loanBalance = loanBalance.subtract(amount);
+		} 
 	}
 
 	public void intrest() {
-		if (loanBalance.equals("0.00")) {
+		if (balance.equals("0.00")) {
 		} else {
-			loanBalance = loanBalance.add(loanBalance.multiply(intRate));
-			loanBalance = loanBalance.setScale(2, RoundingMode.HALF_UP);
+			balance = balance.add(balance.multiply(intRate));
+			balance = balance.setScale(2, RoundingMode.HALF_UP);
 		}
 	}
-
+	
+	public abstract void update();
 }

@@ -1,11 +1,11 @@
 import java.math.BigDecimal;
 
-public class CheckingAccount extends BankAccount {
-	public CheckingAccount(BigDecimal balance, BigDecimal intRate) {
+public class CreditCard extends BankAccount {
+	public CreditCard(BigDecimal balance, BigDecimal intRate) {
 		super(balance, intRate);
 	}
 
-	private String accountType = "checking";
+	private String accountType = "credit card";
 
 	public String getAccountType() {
 		return accountType;
